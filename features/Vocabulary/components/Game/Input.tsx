@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { CircleCheck, CircleX, CircleArrowRight } from 'lucide-react';
-import { Random } from 'random-js';
 import clsx from 'clsx';
 import * as wanakana from 'wanakana';
 import { IVocabObj } from '@/features/Vocabulary/store/useVocabStore';
@@ -17,8 +16,6 @@ import SSRAudioButton from '@/shared/components/audio/SSRAudioButton';
 import FuriganaText from '@/shared/components/text/FuriganaText';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
 import { getGlobalAdaptiveSelector } from '@/shared/lib/adaptiveSelection';
-
-const random = new Random();
 
 // Get the global adaptive selector for weighted character selection
 const adaptiveSelector = getGlobalAdaptiveSelector();
