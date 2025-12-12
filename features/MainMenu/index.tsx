@@ -30,16 +30,16 @@ const MainMenu = () => {
   const [isMounted, setIsMounted] = useState(false);
   const isLG = useMediaQuery({ minWidth: 1024 });
 
-  const theme = usePreferencesStore(state => state.theme);
-  const setTheme = usePreferencesStore(state => state.setTheme);
+  const theme = usePreferencesStore((state) => state.theme);
+  const setTheme = usePreferencesStore((state) => state.setTheme);
 
   const { playClick } = useClick();
 
   const expandDecorations = useDecorationsStore(
-    state => state.expandDecorations
+    (state) => state.expandDecorations
   );
   const toggleExpandDecorations = useDecorationsStore(
-    state => state.toggleExpandDecorations
+    (state) => state.toggleExpandDecorations
   );
 
   const [showBanner, setShowBanner] = useState(false);
@@ -109,8 +109,8 @@ const MainMenu = () => {
             <Decorations expandDecorations={expandDecorations} />
           )}
           <Button
-            variant='secondary'
-            size='icon'
+            variant="secondary"
+            size="icon"
             className={clsx(
               'fixed top-4 right-8 z-50 opacity-90',
               buttonBorderStyles,
@@ -150,9 +150,9 @@ const MainMenu = () => {
           expandDecorations && 'hidden'
         )}
       >
-        <div className='flex flex-row justify-between items-center w-full px-1 gap-2'>
+        <div className="flex flex-row justify-between items-center w-full px-1 gap-2">
           <Banner />
-          <div className='flex flex-row justify-end gap-2 w-1/2 md:w-1/3'>
+          <div className="flex flex-row justify-end gap-2 w-1/2 md:w-1/3">
             {theme === 'dark' ? (
               <Moon
                 size={32}
@@ -194,7 +194,7 @@ const MainMenu = () => {
 
             <FontAwesomeIcon
               icon={faDiscord}
-              size='2x'
+              size="2x"
               className={clsx(
                 'hover:cursor-pointer duration-250 ',
                 'active:scale-100 active:duration-225',
@@ -208,7 +208,7 @@ const MainMenu = () => {
             />
             <FontAwesomeIcon
               icon={faGithub}
-              size='2x'
+              size="2x"
               className={clsx(
                 'hover:cursor-pointer duration-250 ',
                 'active:scale-100 active:duration-225',
@@ -262,12 +262,12 @@ const MainMenu = () => {
                   onClick={() => playClick()}
                 >
                   <span
-                    lang='ja'
-                    className='font-normal text-[var(--secondary-color)]'
+                    lang="ja"
+                    className="font-normal text-[var(--secondary-color)]"
                   >
                     {link.name_ja}
                   </span>
-                  <span lang='en' className=''>
+                  <span lang="en" className="">
                     {link.name_en}
                   </span>
                 </button>
@@ -296,7 +296,7 @@ const MainMenu = () => {
           expandDecorations && 'hidden'
         )}
       >
-        <div className='flex justify-evenly items-center w-full lg:w-2/5'>
+        <div className="flex justify-evenly items-center w-full lg:w-2/5">
           {legalLinks.map((link, i) => (
             <Link
               href={link.href}
@@ -307,8 +307,8 @@ const MainMenu = () => {
               )}
               onClick={() => playClick()}
             >
-              <link.icon className='size-4' />
-              <span className='text-xs'>{link.name}</span>
+              <link.icon className="size-4" />
+              <span className="text-xs">{link.name}</span>
             </Link>
           ))}
         </div>

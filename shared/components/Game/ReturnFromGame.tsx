@@ -36,7 +36,7 @@ interface StatItemProps {
 }
 
 const StatItem = ({ icon: Icon, value }: StatItemProps) => (
-  <p className='text-xl flex flex-row items-center gap-1'>
+  <p className="text-xl flex flex-row items-center gap-1">
     <Icon />
     <span>{value}</span>
   </p>
@@ -52,13 +52,15 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
   const totalTimeStopwatch = useStopwatch({ autoStart: false });
   const buttonRef = useRef<HTMLAnchorElement | null>(null);
 
-  const saveSession = useStatsStore(s => s.saveSession);
-  const numCorrectAnswers = useStatsStore(s => s.numCorrectAnswers);
-  const numWrongAnswers = useStatsStore(s => s.numWrongAnswers);
-  const numStars = useStatsStore(s => s.stars);
-  const currentStreak = useStatsStore(s => s.currentStreak);
-  const toggleStats = useStatsStore(s => s.toggleStats);
-  const setNewTotalMilliseconds = useStatsStore(s => s.setNewTotalMilliseconds);
+  const saveSession = useStatsStore((s) => s.saveSession);
+  const numCorrectAnswers = useStatsStore((s) => s.numCorrectAnswers);
+  const numWrongAnswers = useStatsStore((s) => s.numWrongAnswers);
+  const numStars = useStatsStore((s) => s.stars);
+  const currentStreak = useStatsStore((s) => s.currentStreak);
+  const toggleStats = useStatsStore((s) => s.toggleStats);
+  const setNewTotalMilliseconds = useStatsStore(
+    (s) => s.setNewTotalMilliseconds
+  );
 
   const { playClick } = useClick();
 
@@ -100,40 +102,40 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
       )}
     >
       {/* Header with exit and progress */}
-      <div className='w-full flex flex-row gap-4 md:gap-6 items-center justify-between'>
+      <div className="w-full flex flex-row gap-4 md:gap-6 items-center justify-between">
         <Link href={href} ref={buttonRef} onClick={handleExit}>
           <X
             size={32}
-            className='hover:cursor-pointer duration-250 text-[var(--border-color)] hover:text-[var(--secondary-color)]'
+            className="hover:cursor-pointer duration-250 text-[var(--border-color)] hover:text-[var(--secondary-color)]"
           />
         </Link>
         <ProgressBar />
       </div>
 
       {/* Game mode and stats row */}
-      <div className='flex flex-row w-full items-center'>
+      <div className="flex flex-row w-full items-center">
         {/* Game mode indicator */}
-        <p className='w-1/2 text-lg md:text-xl  flex justify-start items-center gap-1 sm:gap-2 sm:pl-1'>
+        <p className="w-1/2 text-lg md:text-xl  flex justify-start items-center gap-1 sm:gap-2 sm:pl-1">
           {ModeIcon && (
             <ModeIcon
               className={clsx('text-[var(--main-color)]', modeConfig.className)}
             />
           )}
-          <span className='text-[var(--secondary-color)]'>
+          <span className="text-[var(--secondary-color)]">
             {normalizedMode}
           </span>
         </p>
 
         {/* Stats display */}
-        <div className='w-1/2 flex flex-row gap-1.5 sm:gap-2 md:gap-3 items-center justify-end  py-2 text-[var(--secondary-color)]'>
+        <div className="w-1/2 flex flex-row gap-1.5 sm:gap-2 md:gap-3 items-center justify-end  py-2 text-[var(--secondary-color)]">
           <StatItem icon={SquareCheck} value={numCorrectAnswers} />
           <StatItem icon={SquareX} value={numWrongAnswers} />
           <StatItem icon={Flame} value={currentStreak} />
           <StatItem icon={Star} value={numStars} />
 
           <ActionButton
-            borderRadius='xl'
-            className='p-2 md:px-6 text-xl w-auto'
+            borderRadius="xl"
+            className="p-2 md:px-6 text-xl w-auto"
             onClick={handleShowStats}
           >
             <ChartSpline size={24} />
