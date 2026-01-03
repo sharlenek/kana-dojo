@@ -6,7 +6,7 @@ import useKanaStore from '@/features/Kana/store/useKanaStore';
 import { CircleCheck, CircleX } from 'lucide-react';
 import { Random } from 'random-js';
 import { useCorrect, useError } from '@/shared/hooks/useAudio';
-import GameIntel from '@/shared/components/Game/GameIntel';
+// import GameIntel from '@/shared/components/Game/GameIntel';
 import { buttonBorderStyles } from '@/shared/lib/styles';
 import { pickGameKeyMappings } from '@/shared/lib/keyMappings';
 import { useStopwatch } from 'react-timer-hook';
@@ -550,7 +550,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
         isHidden ? 'hidden' : ''
       )}
     >
-      <GameIntel gameMode={gameMode} />
+      {/* <GameIntel gameMode={gameMode} /> */}
       <div className='flex flex-row items-center gap-1'>
         <p className='text-8xl font-medium sm:text-9xl'>{displayChar}</p>
       </div>

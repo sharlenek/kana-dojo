@@ -6,7 +6,7 @@ import { CircleCheck, CircleX, CircleArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { useClick, useCorrect, useError } from '@/shared/hooks/useAudio';
-import GameIntel from '@/shared/components/Game/GameIntel';
+// import GameIntel from '@/shared/components/Game/GameIntel';
 import { useStopwatch } from 'react-timer-hook';
 import useStats from '@/shared/hooks/useStats';
 import useStatsStore from '@/features/Progress/store/useStatsStore';
@@ -271,7 +271,7 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
         isHidden ? 'hidden' : ''
       )}
     >
-      <GameIntel gameMode={gameMode} />
+      {/* <GameIntel gameMode={gameMode} /> */}
       <div className='flex flex-row items-center gap-1'>
         <motion.p
           className='text-8xl font-medium sm:text-9xl'

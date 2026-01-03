@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { toHiragana } from 'wanakana';
 import { IVocabObj } from '@/features/Vocabulary/store/useVocabStore';
 import { useClick, useCorrect, useError } from '@/shared/hooks/useAudio';
-import GameIntel from '@/shared/components/Game/GameIntel';
+// import GameIntel from '@/shared/components/Game/GameIntel';
 import { useStopwatch } from 'react-timer-hook';
 import useStats from '@/shared/hooks/useStats';
 import useStatsStore from '@/features/Progress/store/useStatsStore';
@@ -273,7 +273,7 @@ const VocabInputGame = ({
         isHidden ? 'hidden' : ''
       )}
     >
-      <GameIntel gameMode={gameMode} />
+      {/* <GameIntel gameMode={gameMode} /> */}
 
       {displayAnswerSummary ? (
         <AnswerSummary

@@ -6,7 +6,7 @@ import { Random } from 'random-js';
 import useKanjiStore, { IKanjiObj } from '@/features/Kanji/store/useKanjiStore';
 import { useCorrect, useError } from '@/shared/hooks/useAudio';
 import { buttonBorderStyles } from '@/shared/lib/styles';
-import GameIntel from '@/shared/components/Game/GameIntel';
+// import GameIntel from '@/shared/components/Game/GameIntel';
 import { pickGameKeyMappings } from '@/shared/lib/keyMappings';
 import { useStopwatch } from 'react-timer-hook';
 import useStats from '@/shared/hooks/useStats';
@@ -336,7 +336,7 @@ const KanjiPickGame = ({ selectedKanjiObjs, isHidden }: KanjiPickGameProps) => {
         !isReverse && ''
       )}
     >
-      <GameIntel gameMode={gameMode} />
+      {/* <GameIntel gameMode={gameMode} /> */}
       {displayAnswerSummary && (
         <AnswerSummary
           payload={currentKanjiObj}

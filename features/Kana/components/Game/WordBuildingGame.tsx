@@ -7,7 +7,7 @@ import useKanaStore from '@/features/Kana/store/useKanaStore';
 import { CircleCheck, CircleX, CircleArrowRight, Trash2 } from 'lucide-react';
 import { Random } from 'random-js';
 import { useCorrect, useError, useClick } from '@/shared/hooks/useAudio';
-import GameIntel from '@/shared/components/Game/GameIntel';
+// import GameIntel from '@/shared/components/Game/GameIntel';
 import { getGlobalAdaptiveSelector } from '@/shared/lib/adaptiveSelection';
 import Stars from '@/shared/components/Game/Stars';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
@@ -505,7 +505,7 @@ const WordBuildingGame = ({
         isHidden && 'hidden'
       )}
     >
-      <GameIntel gameMode='word-building' />
+      {/* <GameIntel gameMode='word-building' /> */}
 
       {/* Word Display */}
       <div className='flex flex-row items-center gap-1'>

@@ -6,7 +6,7 @@ import { Random } from 'random-js';
 import { IVocabObj } from '@/features/Vocabulary/store/useVocabStore';
 import { useCorrect, useError } from '@/shared/hooks/useAudio';
 import { buttonBorderStyles } from '@/shared/lib/styles';
-import GameIntel from '@/shared/components/Game/GameIntel';
+// import GameIntel from '@/shared/components/Game/GameIntel';
 import { pickGameKeyMappings } from '@/shared/lib/keyMappings';
 import { useStopwatch } from 'react-timer-hook';
 import useStats from '@/shared/hooks/useStats';
@@ -361,7 +361,7 @@ const VocabPickGame = ({ selectedWordObjs, isHidden }: VocabPickGameProps) => {
         isHidden ? 'hidden' : ''
       )}
     >
-      <GameIntel gameMode={gameMode} />
+      {/* <GameIntel gameMode={gameMode} /> */}
       {displayAnswerSummary && (
         <AnswerSummary
           payload={currentWordObj}
