@@ -13,7 +13,6 @@ import Stars from '@/shared/components/Game/Stars';
 import { useCrazyModeTrigger } from '@/features/CrazyMode/hooks/useCrazyModeTrigger';
 import useStatsStore from '@/features/Progress/store/useStatsStore';
 import { useShallow } from 'zustand/react/shallow';
-import useStats from '@/shared/hooks/useStats';
 import { ActionButton } from '@/shared/components/ui/ActionButton';
 import { useStopwatch } from 'react-timer-hook';
 import { useSmartReverseMode } from '@/shared/hooks/useSmartReverseMode';
@@ -206,7 +205,12 @@ const WordBuildingGame = ({
     incrementKatakanaCorrect,
     incrementWrongStreak,
     resetWrongStreak,
-    recordAnswerTime
+    recordAnswerTime,
+    incrementCorrectAnswers,
+    incrementWrongAnswers,
+    addCharacterToHistory,
+    incrementCharacterScore,
+    addCorrectAnswerTime
   } = useStatsStore(
     useShallow(state => ({
       score: state.score,
@@ -215,17 +219,14 @@ const WordBuildingGame = ({
       incrementKatakanaCorrect: state.incrementKatakanaCorrect,
       incrementWrongStreak: state.incrementWrongStreak,
       resetWrongStreak: state.resetWrongStreak,
-      recordAnswerTime: state.recordAnswerTime
+      recordAnswerTime: state.recordAnswerTime,
+      incrementCorrectAnswers: state.incrementCorrectAnswers,
+      incrementWrongAnswers: state.incrementWrongAnswers,
+      addCharacterToHistory: state.addCharacterToHistory,
+      incrementCharacterScore: state.incrementCharacterScore,
+      addCorrectAnswerTime: state.addCorrectAnswerTime
     }))
   );
-
-  const {
-    incrementCorrectAnswers,
-    incrementWrongAnswers,
-    addCharacterToHistory,
-    incrementCharacterScore,
-    addCorrectAnswerTime
-  } = useStats();
 
   const kanaGroupIndices = useKanaStore(state => state.kanaGroupIndices);
 
