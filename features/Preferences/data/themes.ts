@@ -949,6 +949,12 @@ const baseThemeSets: BaseThemeGroup[] = [
         mainColor: 'oklch(90.0% 0.208 150.0 / 1)',          // coral green
         secondaryColor: 'oklch(82.0% 0.160 185.0 / 1)',     // lagoon teal
       },
+      {
+        id: 'yoru-no-mori',
+        backgroundColor: 'oklch(13.5% 0.035 55.0 / 1)',   // midnight bark
+        mainColor: 'oklch(78.0% 0.155 140.0 / 1)',         // moss green
+        secondaryColor: 'oklch(65.0% 0.110 190.0 / 1)',    // twilight leaf
+      },
 
     ]
   },
