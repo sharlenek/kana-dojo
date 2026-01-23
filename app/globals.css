@@ -213,3 +213,46 @@ input[type='checkbox']:focus-visible {
 
   }
 } */
+
+/* Editorial Style Utilities */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.editorial-drop-cap::first-letter {
+  float: left;
+  font-size: 4.5rem;
+  line-height: 1;
+  font-weight: 700;
+  padding-right: 0.5rem;
+  color: var(--main-color);
+  font-family: serif;
+}
+
+.hero-text-glow {
+  text-shadow: 0 0 20px hsla(var(--main-color), 0.1);
+}
+
+.premium-serif {
+  font-family: 'Playfair Display', 'Merriweather', serif;
+}
+
+.asymmetric-overlap {
+  position: relative;
+  z-index: 1;
+}
+
+.asymmetric-overlap::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: -5%;
+  bottom: -5%;
+  background: var(--main-color);
+  opacity: 0.02;
+  z-index: -1;
+  border-radius: 0.5rem;
+}
