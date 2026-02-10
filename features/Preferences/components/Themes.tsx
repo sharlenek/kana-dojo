@@ -45,7 +45,6 @@ const Themes = () => {
   const selectedWallpaperId = usePreferencesStore(
     state => state.selectedWallpaperId,
   );
-  const customWallpapers = usePreferencesStore(state => state.customWallpapers);
 
   // Initialize with first theme to avoid hydration mismatch
   const [randomTheme, setRandomTheme] = useState(themeSets[2].themes[0]);
@@ -197,14 +196,12 @@ const Themes = () => {
                       themeWallpaperId || selectedWallpaperId;
 
                     if (wallpaperIdToUse) {
-                      const wallpaper = getWallpaperById(
-                        wallpaperIdToUse,
-                        customWallpapers,
-                      );
+                      const wallpaper = getWallpaperById(wallpaperIdToUse);
                       if (wallpaper) {
                         return getWallpaperStyles(
                           wallpaper.url,
                           isHovered === currentTheme.id,
+                          wallpaper.urlWebp,
                         );
                       }
                     }

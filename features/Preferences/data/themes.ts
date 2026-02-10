@@ -78,19 +78,27 @@ export function getModifiedBorderColor(
 // ============================================================================
 
 /**
- * Get wallpaper styles for a given wallpaper URL
- * @param wallpaperUrl - Direct URL to wallpaper image
+ * Get wallpaper styles for a given wallpaper
+ * Uses CSS image-set() for AVIF with WebP fallback
+ * @param wallpaperUrl - Primary AVIF URL
+ * @param wallpaperUrlWebp - Optional WebP fallback URL
  * @param isHighlighted - Whether the theme is currently hovered/highlighted
  * @returns CSS properties for wallpaper background, or empty object if no URL
  */
 export function getWallpaperStyles(
   wallpaperUrl: string | undefined,
   isHighlighted: boolean,
+  wallpaperUrlWebp?: string,
 ): React.CSSProperties {
   if (!wallpaperUrl) return {};
 
+  // Use image-set for AVIF + WebP fallback when both are available
+  const backgroundImage = wallpaperUrlWebp
+    ? `image-set(url('${wallpaperUrl}') type('image/avif'), url('${wallpaperUrlWebp}') type('image/webp'))`
+    : `url('${wallpaperUrl}')`;
+
   return {
-    backgroundImage: `url('${wallpaperUrl}')`,
+    backgroundImage,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -98,36 +106,31 @@ export function getWallpaperStyles(
   };
 }
 
+// ============================================================================
+// Legacy aliases & theme ID resolution
+// ============================================================================
+
+const legacyThemeAliases = new Map<string, string>([
+  ['neon-city-glass', 'neon-city'],
+]);
+
+const resolveThemeId = (themeId: string): string =>
+  legacyThemeAliases.get(themeId) ?? themeId;
+
 /**
- * Get default wallpaper ID for a theme (if any)
- * Maps premium themes to their default wallpapers
+ * Get default wallpaper ID for a theme (if any).
+ * Dynamically reads from theme definitions — no hardcoded mapping needed.
  */
 export function getThemeDefaultWallpaperId(
   themeId: string,
 ): string | undefined {
-  const themeWallpaperMap: Record<string, string> = {
-    'neon-city': 'neon-city-local',
-    'tokyo-rain': 'tokyo-rain',
-    'cyberpunk-street': 'cyberpunk-street',
-    'sakura-night': 'sakura-night',
-    'mt-fuji-sunset': 'mt-fuji-sunset',
-    'purple-gradient': 'minimal-gradient-purple',
-    'kyoto-lanterns': 'kyoto-lanterns',
-    'arashiyama-bamboo': 'arashiyama-bamboo',
-    'nara-temple': 'nara-temple',
-    'osaka-riverwalk': 'osaka-riverwalk',
-  };
-  return themeWallpaperMap[themeId];
+  const resolvedId = resolveThemeId(themeId);
+  for (const group of baseThemeSets) {
+    const theme = group.themes.find(t => t.id === resolvedId);
+    if (theme?.wallpaperId) return theme.wallpaperId;
+  }
+  return undefined;
 }
-
-// Deprecated: kept for backwards compatibility, will be removed in future
-export const getNeonCityWallpaperStyles = (isHighlighted: boolean) => ({
-  backgroundImage: "url('/wallpapers/neonretrocarcity.jpg')",
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  filter: isHighlighted ? 'brightness(1)' : 'brightness(0.85)',
-});
 
 // ============================================================================
 // Theme building
@@ -177,13 +180,6 @@ const premiumThemeIds = new Set(
     .find(group => group.name.startsWith('Premium'))
     ?.themes.map(theme => theme.id) ?? [],
 );
-
-const legacyThemeAliases = new Map<string, string>([
-  ['neon-city-glass', 'neon-city'],
-]);
-
-const resolveThemeId = (themeId: string): string =>
-  legacyThemeAliases.get(themeId) ?? themeId;
 
 export const isPremiumThemeId = (themeId: string): boolean =>
   premiumThemeIds.has(resolveThemeId(themeId));
@@ -302,11 +298,14 @@ export function applyTheme(themeId: string) {
   // Apply wallpaper if theme has one
   const wallpaperId = getThemeDefaultWallpaperId(resolvedThemeId);
   if (wallpaperId) {
-    const customWallpapers = usePreferencesStore.getState().customWallpapers;
-    const wallpaper = getWallpaperById(wallpaperId, customWallpapers);
+    const wallpaper = getWallpaperById(wallpaperId);
 
     if (wallpaper) {
-      document.body.style.backgroundImage = `url('${wallpaper.url}')`;
+      // Use image-set for AVIF + WebP fallback
+      const backgroundImage = wallpaper.urlWebp
+        ? `image-set(url('${wallpaper.url}') type('image/avif'), url('${wallpaper.urlWebp}') type('image/webp'))`
+        : `url('${wallpaper.url}')`;
+      document.body.style.backgroundImage = backgroundImage;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
       document.body.style.backgroundRepeat = 'no-repeat';

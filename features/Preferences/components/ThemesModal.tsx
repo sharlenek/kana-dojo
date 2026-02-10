@@ -70,7 +70,6 @@ const ThemeCard = memo(function ThemeCard({
   const selectedWallpaperId = usePreferencesStore(
     state => state.selectedWallpaperId,
   );
-  const customWallpapers = usePreferencesStore(state => state.customWallpapers);
 
   const themeName = theme.id.replaceAll('-', ' ');
   const isChaosTheme = theme.id === '?';
@@ -81,7 +80,7 @@ const ThemeCard = memo(function ThemeCard({
   const wallpaperIdToUse = themeWallpaperId || selectedWallpaperId;
 
   const wallpaper = wallpaperIdToUse
-    ? getWallpaperById(wallpaperIdToUse, customWallpapers)
+    ? getWallpaperById(wallpaperIdToUse)
     : undefined;
 
   const background = isChaosTheme
@@ -91,7 +90,7 @@ const ThemeCard = memo(function ThemeCard({
       : theme.backgroundColor;
 
   const wallpaperStyles = wallpaper
-    ? getWallpaperStyles(wallpaper.url, isHovered)
+    ? getWallpaperStyles(wallpaper.url, isHovered, wallpaper.urlWebp)
     : {};
 
   const borderStyle = isPremiumTheme

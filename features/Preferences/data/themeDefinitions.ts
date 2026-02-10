@@ -15,6 +15,7 @@ import {
   TreePine,
   Sparkles,
 } from 'lucide-react';
+import { GENERATED_WALLPAPERS } from './wallpapers.generated';
 
 // Base theme definition - only essential colors, card/border are derived
 export interface BaseTheme {
@@ -33,90 +34,31 @@ export interface BaseThemeGroup {
 }
 
 /**
- * When true, all premium themes will use the same color values as the first
- * premium theme (neon-city) for backgroundColor, mainColor, and secondaryColor.
- * When false, each premium theme retains its own unique color values.
+ * Dynamically generate Premium themes from available wallpapers.
+ * Each wallpaper in the generated manifest becomes a Premium theme.
+ * All Premium themes share the same glass overlay colors (white text on
+ * semi-transparent dark background) — the wallpaper provides the visual identity.
  */
-const USE_UNIFORM_PREMIUM_COLORS = false;
+const premiumThemes: BaseTheme[] = GENERATED_WALLPAPERS.map(wallpaper => ({
+  id: wallpaper.id,
+  backgroundColor: 'oklch(0% 0 0 / 0.95)',
+  mainColor: 'oklch(100% 0 0)',
+  secondaryColor: 'oklch(85% 0 0)',
+  wallpaperId: wallpaper.id,
+}));
 
 const baseThemeSets: BaseThemeGroup[] = [
-  {
-    name: 'Premium (experimental, unstable)',
-    icon: Sparkles,
-    isLight: false,
-    themes: [
-      {
-        id: 'neon-city',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(100% 0 0)',
-        secondaryColor: 'oklch(85% 0 0)',
-        wallpaperId: 'neon-city-local',
-      },
-      {
-        id: 'tokyo-rain',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(100% 0 0)',
-        secondaryColor: 'oklch(90% 0 0)',
-        wallpaperId: 'tokyo-rain',
-      },
-      {
-        id: 'cyberpunk-street',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(100% 0 0)',
-        secondaryColor: 'oklch(90% 0 0)',
-        wallpaperId: 'cyberpunk-street',
-      },
-      {
-        id: 'sakura-night',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(100% 0 0)',
-        secondaryColor: 'oklch(85% 0 0)',
-        wallpaperId: 'sakura-night',
-      },
-      {
-        id: 'mt-fuji-sunset',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(100% 0 0)',
-        secondaryColor: 'oklch(85% 0 0)',
-        wallpaperId: 'mt-fuji-sunset',
-      },
-      {
-        id: 'purple-gradient',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(100% 0 0)',
-        secondaryColor: 'oklch(90% 0 0)',
-        wallpaperId: 'minimal-gradient-purple',
-      },
-      {
-        id: 'kyoto-lanterns',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(74% 0.25 32 / 1)',
-        secondaryColor: 'oklch(68% 0.18 22 / 1)',
-        wallpaperId: 'kyoto-lanterns',
-      },
-      {
-        id: 'arashiyama-bamboo',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(72% 0.14 140 / 1)',
-        secondaryColor: 'oklch(78% 0.1 115 / 1)',
-        wallpaperId: 'arashiyama-bamboo',
-      },
-      {
-        id: 'nara-temple',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(80% 0.12 70 / 1)',
-        secondaryColor: 'oklch(70% 0.17 45 / 1)',
-        wallpaperId: 'nara-temple',
-      },
-      {
-        id: 'osaka-riverwalk',
-        backgroundColor: 'oklch(0% 0 0 / 0.95)',
-        mainColor: 'oklch(68% 0.21 260 / 1)',
-        secondaryColor: 'oklch(70% 0.18 295 / 1)',
-        wallpaperId: 'osaka-riverwalk',
-      },
-    ],
-  },
+  // Premium themes are dynamically generated from wallpapers
+  ...(premiumThemes.length > 0
+    ? [
+        {
+          name: 'Premium (experimental, unstable)',
+          icon: Sparkles,
+          isLight: false,
+          themes: premiumThemes,
+        } as BaseThemeGroup,
+      ]
+    : []),
   {
     name: 'Base',
     icon: Atom,
@@ -1240,21 +1182,5 @@ const baseThemeSets: BaseThemeGroup[] = [
     ],
   },
 ];
-
-// Apply uniform premium colors if the toggle is enabled
-if (USE_UNIFORM_PREMIUM_COLORS) {
-  const premiumGroup = baseThemeSets.find(group =>
-    group.name.startsWith('Premium'),
-  );
-  if (premiumGroup && premiumGroup.themes.length > 0) {
-    const [reference] = premiumGroup.themes;
-    premiumGroup.themes = premiumGroup.themes.map(theme => ({
-      ...theme,
-      backgroundColor: reference.backgroundColor,
-      mainColor: reference.mainColor,
-      secondaryColor: reference.secondaryColor,
-    }));
-  }
-}
 
 export default baseThemeSets;
