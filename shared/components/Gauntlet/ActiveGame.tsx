@@ -697,7 +697,9 @@ export default function ActiveGame<T>({
           state={bottomBarState}
           onAction={showContinue || showTryAgain ? handleContinue : handleCheck}
           canCheck={canCheck}
-          feedbackTitle={showContinue ? 'Correct!' : showTryAgain ? 'Wrong!' : ''}
+          feedbackTitle={
+            showContinue ? 'Correct!' : showTryAgain ? 'Wrong!' : ''
+          }
           feedbackContent={
             showTryAgain && currentQuestion
               ? isTypeMode && getCorrectAnswer

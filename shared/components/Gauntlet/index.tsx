@@ -298,7 +298,10 @@ export default function Gauntlet<T>({ config, onCancel }: GauntletProps<T>) {
   }, [items, repetitions, difficulty, generateShuffledOptions, playClick]);
 
   // Get a unique identifier for the current question item
-  const getItemId = useCallback((item: T): string => getQuestionItemId(item), []);
+  const getItemId = useCallback(
+    (item: T): string => getQuestionItemId(item),
+    [],
+  );
 
   const ensureNextQuestionIsDifferent = useCallback(
     (
@@ -514,14 +517,9 @@ export default function Gauntlet<T>({ config, onCancel }: GauntletProps<T>) {
           const failedQuestion = { ...newQueue[currentIndex] };
           const remainingLength = newQueue.length - (currentIndex + 1);
           const minOffset = remainingLength > 1 ? 2 : 1;
-          const maxOffset = Math.max(
-            minOffset,
-            Math.min(remainingLength, 5),
-          );
+          const maxOffset = Math.max(minOffset, Math.min(remainingLength, 5));
           const insertOffset =
-            remainingLength > 0
-              ? random.integer(minOffset, maxOffset)
-              : 1;
+            remainingLength > 0 ? random.integer(minOffset, maxOffset) : 1;
           const insertPos = currentIndex + insertOffset;
           newQueue.splice(insertPos, 0, failedQuestion);
         }
